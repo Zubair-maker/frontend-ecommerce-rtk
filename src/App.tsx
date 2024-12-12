@@ -4,6 +4,9 @@ import Loading from "./components/admin/Loading";
 
 const Home = lazy(() => import("./pages/Home"));
 const Header = lazy(() => import("./components/Header"));
+const Cart = lazy(() => import("./pages/Cart"));
+const Search = lazy(() => import("./pages/Search"));
+const Shipping = lazy(() => import("./pages/Shipping"));
 
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
 const Customers = lazy(() => import("./pages/admin/Customers"));
@@ -28,6 +31,11 @@ const App = () => {
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/search" element={<Search />} />
+            <Route>
+              <Route path="/shipping" element={<Shipping />} />
+            </Route>
 
             <Route path="admin/dashboard" element={<Dashboard />} />
             <Route path="admin/customer" element={<Customers />} />

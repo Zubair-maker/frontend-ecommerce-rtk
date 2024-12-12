@@ -3,6 +3,10 @@
 @import "admin-styles/products";
 @import "admin-styles/chart";
 @import "home";
+@import "cart-items";
+@import "shipping";
+
+
 
 :root {
   font-family: sans-serif;
@@ -34,7 +38,39 @@ body {
 }
 
 .header {
+  background-color: #d9ebd9;
   @include flex(row, flex-end, stretch, 1rem);
+  padding: 1.1rem;
+  a {
+    color: rgb(28, 167, 223);
+    letter-spacing: 2px;
+    font-size: 1rem;
+    &:hover {
+      color: rgb(98, 164, 190);
+    }
+  }
+  button {
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: transparent;
+    &:hover {
+      color: rgb(28, 167, 223);
+    }
+  }
+  dialog{
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 18px;
+    width: 90px;
+    position: absolute;
+    left: calc(100% - 91px);
+    top:9%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    .order_wrapper{
+      @include flex(column,flex-start,center,1.25rem)
+    }
+  }
 }
 
 .admin_container {

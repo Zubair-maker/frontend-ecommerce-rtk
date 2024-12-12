@@ -1,0 +1,92 @@
+.cart {
+  padding: 2rem 4rem;
+  @include flex(row, space-between, flex-start, 4rem);
+  height: calc(100vh - 4rem);
+
+  .rigth {
+    width: 60%;
+    > h1 {
+      @include heading(2px);
+      text-align: center;
+    }
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .left {
+    width: 40%;
+    padding: 4rem;
+    @include flex(column, center, stretch, 1.4rem);
+    > input {
+      padding: 1rem;
+      border: 1px solid rgba(0, 0, 0, 0.13);
+      outline: none;
+      border-radius: 5px;
+      margin-top: 1rem;
+    }
+    > p {
+      font-size: 1rem;
+    }
+    > a {
+      background-color: rgb(186, 159, 211);
+      padding: 1rem;
+      text-decoration: none;
+      color: black;
+      @include flex;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border-radius: 5px;
+    }
+    > span {
+      margin-top: -1rem;
+      @include flex;
+      > code {
+        font-weight: 800;
+        align-self: flex-end;
+      }
+    }
+  }
+}
+.cart_item {
+  padding: 0.5rem;
+  @include flex(row, flex-start, center, 2rem);
+  > img {
+    @include square(10rem);
+    object-fit: contain;
+  }
+  > article {
+    @include flex(column, center, flex-start, 0.25rem);
+    a {
+      font-size: 1rem;
+      color: rgb(201, 184, 218);
+    }
+    > span {
+      font-weight: 700;
+    }
+  }
+  > div {
+    margin-left: auto;
+    margin-left: auto;
+    @include flex;
+    button {
+      border: none;
+      @include square(2rem);
+      border-radius: 5px;
+      @include flex;
+      cursor: pointer;
+      font-size: 1rem;
+      &:hover {
+        background-color: wheat;
+        color: black;
+      }
+    }
+  }
+  > button {
+    border: none;
+    color: red;
+    @include flex;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+}

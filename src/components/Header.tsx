@@ -11,26 +11,30 @@ import { useState } from "react";
 const user = { id: "FaSignInAlt", role: "admin" };
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <nav className="header">
-      <Link to={"/"}>Home</Link>
-      <Link to={"/search"}>
+      <Link to={"/"} onClick={() => setIsOpen(false)}>
+        Home
+      </Link>
+      <Link to={"/search"} onClick={() => setIsOpen(false)}>
         <FaSearch />
       </Link>
-      <Link to={"/cart"}>
+      <Link to={"/cart"} onClick={() => setIsOpen(false)}>
         <FaShoppingBag />
       </Link>
 
       {user?.id ? (
         <>
-          <button onClick={()=>setIsOpen((prev)=>!prev)}>
+          <button onClick={() => setIsOpen((prev) => !prev)}>
             <FaUser />
           </button>
           <dialog open={isOpen}>
-            <div>
-              {user?.role === "admin" && <Link to={"/admin/dashboard"}>Admin</Link>}
-              <Link to={"/orders"}>Orders</Link>
+            <div className="order_wrapper">
+              {user?.role === "admin" && (
+                <Link to={"/admin/dashboard"} onClick={()=>setIsOpen(false)}>Admin</Link>
+              )}
+              <Link to={"/orders"} onClick={()=>setIsOpen(false)}>Orders</Link>
               <button>
                 <FaSignOutAlt />
               </button>
