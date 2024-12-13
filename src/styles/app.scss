@@ -5,8 +5,9 @@
 @import "home";
 @import "cart-items";
 @import "shipping";
-
-
+@import "login";
+@import "search";
+@import "order-details";
 
 :root {
   font-family: sans-serif;
@@ -37,6 +38,18 @@ body {
   user-select: none;
 }
 
+.order {
+  max-width: 900px;
+  width: 100%;
+  margin: auto;
+  overflow: auto;
+  > h1 {
+    @include heading;
+    margin: 1rem 0;
+    text-align: left;
+  }
+}
+
 .header {
   background-color: #d9ebd9;
   @include flex(row, flex-end, stretch, 1rem);
@@ -58,17 +71,18 @@ body {
       color: rgb(28, 167, 223);
     }
   }
-  dialog{
+  dialog {
     border: 1px solid #ccc;
     border-radius: 10px;
+    z-index: 1;
     padding: 18px;
     width: 90px;
     position: absolute;
     left: calc(100% - 91px);
-    top:9%;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    .order_wrapper{
-      @include flex(column,flex-start,center,1.25rem)
+    top: 9%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    .order_wrapper {
+      @include flex(column, flex-start, center, 1.25rem);
     }
   }
 }
