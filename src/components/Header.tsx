@@ -7,10 +7,13 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import { useState } from "react";
+import { User } from "../types/types";
 
-const user = { id: "", role: "" };
+interface PropsType {
+  user: User | null;
+}
 
-const Header = () => {
+const Header = ({ user }: PropsType) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <nav className="header">
@@ -23,8 +26,7 @@ const Header = () => {
       <Link to={"/cart"} onClick={() => setIsOpen(false)}>
         <FaShoppingBag />
       </Link>
-
-      {user?.id ? (
+      {user?._id ? (
         <>
           <button onClick={() => setIsOpen((prev) => !prev)}>
             <FaUser />
@@ -32,9 +34,13 @@ const Header = () => {
           <dialog open={isOpen}>
             <div className="order_wrapper">
               {user?.role === "admin" && (
-                <Link to={"/admin/dashboard"} onClick={()=>setIsOpen(false)}>Admin</Link>
+                <Link to={"/admin/dashboard"} onClick={() => setIsOpen(false)}>
+                  Admin
+                </Link>
               )}
-              <Link to={"/orders"} onClick={()=>setIsOpen(false)}>Orders</Link>
+              <Link to={"/orders"} onClick={() => setIsOpen(false)}>
+                Orders
+              </Link>
               <button>
                 <FaSignOutAlt />
               </button>
@@ -42,7 +48,7 @@ const Header = () => {
           </dialog>
         </>
       ) : (
-        <Link to={"/login"}>
+        <Link to="/login">
           <FaSignInAlt />
         </Link>
       )}

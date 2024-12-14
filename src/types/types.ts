@@ -4,6 +4,12 @@ export type User = {
   photo: string;
   gender: string;
   role: string;
-  bod: string;
+  dob: string;
   _id: string;
 };
+
+//userReducer types
+export interface UserReducerInitialState {
+  user: User | null;
+  loading: boolean;
+}

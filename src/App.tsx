@@ -1,10 +1,16 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { lazy, Suspense } from "react";
-import Loading from "./components/admin/Loading";
+import { lazy, Suspense, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
+import { userExist, userNotExist } from "./redux/reducers/userReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "./redux/api-rtk/userAPI";
+import { UserReducerInitialState } from "./types/types";
+import Header from "./components/Header";
+import Loader, { LoaderLayout } from "./components/Loader";
 
 const Home = lazy(() => import("./pages/Home"));
-const Header = lazy(() => import("./components/Header"));
 const Cart = lazy(() => import("./pages/Cart"));
 const Search = lazy(() => import("./pages/Search"));
 const Shipping = lazy(() => import("./pages/Shipping"));
@@ -28,11 +34,28 @@ const PieCharts = lazy(() => import("./pages/admin/charts/PieCharts"));
 const LineCharts = lazy(() => import("./pages/admin/charts/LineCharts"));
 
 const App = () => {
-  return (
+  const dispatch = useDispatch();
+  const { user, loading } = useSelector(
+    (state: { userReducer: UserReducerInitialState }) => state.userReducer
+  );
+  // console.log("userts", user);
+  useEffect(() => {
+    onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        const data = await getUser(firebaseUser.uid);
+        // console.log("data",data)
+        dispatch(userExist(data?.data));
+        console.log("loggedin");
+      } else dispatch(userNotExist());
+    });
+  }, []);
+  return loading ? (
+    <Loader />
+  ) : (
     <>
       <BrowserRouter>
-        <Header />
-        <Suspense fallback={<Loading />}>
+        <Header user={user} />
+        <Suspense fallback={<LoaderLayout />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
