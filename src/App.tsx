@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Loading from "./components/admin/Loading";
+import { Toaster } from "react-hot-toast";
 
 const Home = lazy(() => import("./pages/Home"));
 const Header = lazy(() => import("./components/Header"));
@@ -63,6 +64,7 @@ const App = () => {
             />
           </Routes>
         </Suspense>
+        <Toaster position="bottom-center" />
       </BrowserRouter>
     </>
   );
