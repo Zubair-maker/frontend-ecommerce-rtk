@@ -6,16 +6,13 @@ const Loader = () => {
   );
 };
 
-export const LoaderLayout = () => {
+export const Skeleton = ({ width = "unset" }: { width?: string }) => {
   return (
-    <section
-      style={{
-        height: "calc(100vh - 4rem)",
-      }}
-      className="loader"
-    >
-      <div></div>
-    </section>
+    <div className="sk_loader" style={{ width }}>
+      <div className="sk_shape"></div>
+      <div className="sk_shape"></div>
+      <div className="sk_shape"></div>
+    </div>
   );
 };
 

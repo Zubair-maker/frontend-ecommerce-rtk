@@ -1,13 +1,29 @@
 import { useState } from "react";
 import ProductCard from "../components/ProductCard";
+import {
+  useProductCategoryQuery,
+  useSearchProductQuery,
+} from "../redux/api-rtk/productApi";
 
 const Search = () => {
+  const { data: categories } = useProductCategoryQuery("");
+
+  // console.log("category", categories?.data);
+
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
   const [maxPrice, setMaxPrice] = useState<number>(50000);
   const [page, setPage] = useState(1);
   const [category, setCategory] = useState("");
 
+  const { data: searchProduct } = useSearchProductQuery({
+    search,
+    sort,
+    price: maxPrice,
+    page,
+    category,
+  });
+  // console.log("searchProd", searchProduct?.data.data);
   const addToCart = () => {};
   return (
     <div className="search_page">
@@ -38,8 +54,9 @@ const Search = () => {
             onChange={(e) => setCategory(e.target.value)}
           >
             <option value="">All</option>
-            <option value="">Category1</option>
-            <option value="">Category2</option>
+            {categories?.data.map((item) => (
+              <option value={item}>{item.toUpperCase()}</option>
+            ))}
           </select>
         </div>
       </aside>
@@ -52,22 +69,32 @@ const Search = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
         <div className="search_pro_lits">
-          <ProductCard
-            productId="154541wudnwd"
-            name="macbook"
-            price={2500}
-            stock={25}
-            handler={addToCart}
-            photo="https://m.media-amazon.com/images/I/71RDgtHsREL._AC_UY218_.jpg"
-          />
+          {searchProduct && searchProduct.data.products.length > 0 ? (
+            searchProduct.data.products.map((item) => (
+              <ProductCard
+                key={item._id}
+                productId={item._id}
+                name={item.productName}
+                price={item.price}
+                stock={item.stock}
+                handler={addToCart}
+                photo={item.photo}
+              />
+            ))
+          ) : (
+            <p className="no-products-found">No products found!!</p>
+          )}
         </div>
-        <div className="bottom">
-          <button onClick={() => setPage((prev) => prev - 1)}>Prev</button>
-          <span>
-            {page} of {4}
-          </span>
-          <button onClick={() => setPage((prev) => prev + 1)}>Next</button>
-        </div>
+
+        {searchProduct && searchProduct?.data.totalPage > 1 && (
+          <div className="bottom">
+            <button onClick={() => setPage((prev) => prev - 1)}>Prev</button>
+            <span>
+              {page} of {searchProduct?.data.totalPage}
+            </span>
+            <button onClick={() => setPage((prev) => prev + 1)}>Next</button>
+          </div>
+        )}
       </main>
     </div>
   );

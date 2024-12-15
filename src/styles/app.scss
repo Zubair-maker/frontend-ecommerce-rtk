@@ -205,3 +205,29 @@ body {
     }
   }
 }
+
+.sk_loader {
+  display: flex;
+  flex-direction: column;
+}
+
+.sk_shape {
+  height: 30px;
+  width: 100%;
+  background-color: #c0aaaa;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  animation: skeleon-loading 1.5s infinite;
+}
+
+@keyframes skeleon-loading {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}

@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
@@ -8,7 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "./redux/api-rtk/userAPI";
 import { UserReducerInitialState } from "./types/types";
 import Header from "./components/Header";
-import Loader, { LoaderLayout } from "./components/Loader";
+import Loader from "./components/Loader";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const Home = lazy(() => import("./pages/Home"));
 const Cart = lazy(() => import("./pages/Cart"));
@@ -39,52 +40,80 @@ const App = () => {
     (state: { userReducer: UserReducerInitialState }) => state.userReducer
   );
   // console.log("userts", user);
+  const [authLoading, setAuthLoading] = useState(true);
   useEffect(() => {
     onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         const data = await getUser(firebaseUser.uid);
         // console.log("data",data)
         dispatch(userExist(data?.data));
-        console.log("loggedin");
-      } else dispatch(userNotExist());
+        // console.log("loggedin");
+      } else {
+        dispatch(userNotExist());
+      }
+      setAuthLoading(false);
     });
   }, []);
-  return loading ? (
-    <Loader />
-  ) : (
+
+  if (loading || authLoading) {
+    // Show loader while fetching user or checking auth state
+    return <Loader />;
+  }
+
+  return (
     <>
       <BrowserRouter>
         <Header user={user} />
-        <Suspense fallback={<LoaderLayout />}>
+        <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/search" element={<Search />} />
-            <Route path="/login" element={<Login />} />
-
-            <Route>
+            <Route
+              path="/login"
+              element={
+                ////user ? false : true
+                <ProtectedRoute isAuthenticated={!user}>
+                  <Login />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              //user ? true : false
+              element={<ProtectedRoute isAuthenticated={!!user} />}
+            >
               <Route path="/shipping" element={<Shipping />} />
               <Route path="/orders" element={<Order />} />
               <Route path="/orders/:id" element={<OrderDetails />} />
             </Route>
-
-            <Route path="admin/dashboard" element={<Dashboard />} />
-            <Route path="admin/customer" element={<Customers />} />
-            <Route path="admin/product" element={<Product />} />
-            <Route path="admin/transaction" element={<Transaction />} />
-
-            {/* barcharts routs */}
-            <Route path="/admin/chart/bar" element={<BarCharts />} />
-            <Route path="/admin/chart/pie" element={<PieCharts />} />
-            <Route path="/admin/chart/line" element={<LineCharts />} />
-
-            {/* management routes */}
-            <Route path="/admin/product/new" element={<NewProduct />} />
-            <Route path="/admin/product/:id" element={<ProductManagement />} />
             <Route
-              path="/admin/transaction/:id"
-              element={<TransactionManagement />}
-            />
+              element={
+                <ProtectedRoute
+                  isAuthenticated={!!user}
+                  adminRoute={true}
+                  isAdmin={user?.role === "admin"}
+                />
+              }
+            >
+              <Route path="admin/dashboard" element={<Dashboard />} />
+              <Route path="admin/customer" element={<Customers />} />
+              <Route path="admin/product" element={<Product />} />
+              <Route path="admin/transaction" element={<Transaction />} />
+              {/* barcharts routs */}
+              <Route path="/admin/chart/bar" element={<BarCharts />} />
+              <Route path="/admin/chart/pie" element={<PieCharts />} />
+              <Route path="/admin/chart/line" element={<LineCharts />} />
+              {/* management routes */}
+              <Route path="/admin/product/new" element={<NewProduct />} />
+              <Route
+                path="/admin/product/:id"
+                element={<ProductManagement />}
+              />
+              <Route
+                path="/admin/transaction/:id"
+                element={<TransactionManagement />}
+              />
+            </Route>
           </Routes>
         </Suspense>
         <Toaster position="bottom-center" />

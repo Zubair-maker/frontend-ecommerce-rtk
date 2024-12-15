@@ -1,7 +1,10 @@
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
+import { useLatestProductQuery } from "../redux/api-rtk/productApi";
+import { Skeleton } from "../components/Loader";
+import toast from "react-hot-toast";
 
 const DemoCarousel = () => {
   return (
@@ -29,6 +32,10 @@ const DemoCarousel = () => {
 };
 
 const Home = () => {
+  const { data, isLoading, isError } = useLatestProductQuery("");
+
+  // console.log("home",data?.data)
+  if (isError) toast.error("Cant Fetch Products");
   const addToCart = () => {};
   return (
     <div className="home">
@@ -42,15 +49,21 @@ const Home = () => {
         </Link>
       </h1>
       <div className="latest_product">
-        <ProductCard
-          productId="154541wudnwd"
-          name="macbook"
-          price={2500}
-          stock={25}
-          handler={addToCart}
-          photo="https://m.media-amazon.com/images/I/71RDgtHsREL._AC_UY218_.jpg"
-        />
-        
+        {isLoading ? (
+          <Skeleton width="40vw" />
+        ) : (
+          data?.data.map((product) => (
+            <ProductCard
+              key={product._id}
+              productId={product._id}
+              name={product.productName}
+              price={product.price}
+              stock={product.stock}
+              handler={addToCart}
+              photo={product.photo}
+            />
+          ))
+        )}
       </div>
     </div>
   );

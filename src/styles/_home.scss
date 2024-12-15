@@ -9,6 +9,9 @@
   width: 100%;
   > section {
     .carousel-root {
+      .carousel.carousel-slider {
+        height: 250px;
+      }
       .carousel .thumbs-wrapper {
         display: none;
       }
@@ -36,14 +39,17 @@
 }
 .product_card {
   background: azure;
+  border-radius: 4px;
   height: 20rem;
   width: 18rem;
   padding: 1rem;
   flex: none;
   @include flex(column, flex-start, center, 2px);
   img {
-    @include square(calc(18rem - 3rem));
-    object-fit: cover;
+    max-height: 10rem;
+    height: 15rem;
+    width: 15rem;
+    object-fit: contain;
     margin: 1rem;
   }
   > p {

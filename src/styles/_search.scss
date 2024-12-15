@@ -47,6 +47,13 @@
       flex-wrap: wrap;
       overflow-y: auto;
       height: calc(100% - 10rem);
+      .no-products-found {
+        align-self: center;
+        padding: 1.2rem;
+        color: rgb(224, 136, 28);
+        font-size: 16px;
+        font-weight: 600;
+      }
     }
     .bottom {
       @include flex;

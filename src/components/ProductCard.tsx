@@ -1,3 +1,5 @@
+import { server } from "../redux/store";
+
 type ProductProps = {
   productId: string;
   photo: string;
@@ -19,10 +21,10 @@ const ProductCard = ({
 }: ProductProps) => {
   return (
     <div className="product_card">
-      <img src={photo} alt={name} />
+      <img src={`${server}/${photo}`} alt={name} />
       <p>{name}</p>
       <span>${price}</span>
-      <button>Add To Cart</button>
+      <button onClick={()=>handler()}>Add To Cart</button>
     </div>
   );
 };
