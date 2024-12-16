@@ -1,162 +1,179 @@
 .dashboard-product-box {
+  background-color: white;
+  padding: 2rem;
+  overflow: auto;
+  @include square(100%);
+}
+.plus-btn {
+  position: fixed;
+  top: 6rem;
+  right: 2rem;
+  color: white;
+  @include square(2rem);
+  border-radius: 50%;
+  background-color: rgb(201, 9, 9);
+  &:hover {
+    opacity: 0.8;
+  }
+  @include flex(row, center, center, 0);
+}
+
+.product_management {
+  @include flex(row, center, unset);
+  padding: 3rem;
+
+  > section {
+    overflow-y: auto;
+    width: 100%;
+    height: 85vh;
+    max-width: 400px;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.216);
     background-color: white;
+    padding: 5rem;
+    @include flex(column, unset, unset, 1rem);
+    position: relative;
+    border-radius: 5px;
+
+    > h2 {
+      @include heading(2px);
+      text-align: center;
+    }
+
+    > img {
+      @include square(100%);
+      object-fit: cover;
+    }
+
+    > strong {
+      font-weight: 300;
+    }
+
+    > span {
+      position: absolute;
+      right: 2rem;
+      top: 2rem;
+    }
+
+    > p {
+      text-align: center;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    > h3 {
+      text-align: center;
+      font-size: 2rem;
+    }
+  }
+
+  .form_wrapper {
+    height: 85vh;
     padding: 2rem;
-    overflow: auto;
-    @include square(100%);
-  }
-  .plus-btn {
-    position: fixed;
-    top: 6rem;
-    right: 2rem;
-    color: white;
-    @include square(2rem);
-    border-radius: 50%;
-    background-color: rgb(201, 9, 9);
-    &:hover {
-      opacity: 0.8;
+    background-color: white;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.2);
+    .delete_btn {
+      width: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      border-radius: 38%;
+      height: 30px;
+      position: absolute;
+      right: 111px;
+      top: 100px;
+      cursor: pointer;
+      >svg{
+        color: red;
+        font-size: 24px
+      }
     }
-    @include flex(row, center, center, 0);
-  }
-  
-  .product_management {
-    @include flex(row, center, unset);
-    padding: 3rem;
-  
-    > section {
-      overflow-y: auto;
-      width: 100%;
-      height: 85vh;
-      max-width: 400px;
-      box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.216);
-      background-color: white;
-      padding: 5rem;
-      @include flex(column, unset, unset, 1rem);
-      position: relative;
-      border-radius: 5px;
-  
+    > form {
+      @include flex(column, unset, center, 1rem);
       > h2 {
-        @include heading(2px);
-        text-align: center;
-      }
-  
-      > img {
-        @include square(100%);
-        object-fit: cover;
-      }
-  
-      > strong {
-        font-weight: 300;
-      }
-  
-      > span {
-        position: absolute;
-        right: 2rem;
-        top: 2rem;
-      }
-  
-      > p {
-        text-align: center;
-        letter-spacing: 2px;
         text-transform: uppercase;
+        font-size: 16px;
+        letter-spacing: 2px;
       }
-      > h3 {
-        text-align: center;
-        font-size: 2rem;
+      > img {
+        @include square(5rem);
+        object-fit: cover;
+        border-radius: 5px;
       }
-    }
-  
-    .form_wrapper {
-      height: 85vh;
-      padding: 2rem;
-      background-color: white;
-      width: 100%;
-      max-width: 400px;
-      border-radius: 10px;
-      box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.2);
-      > form {
-        @include flex(column, unset, center, 1rem);
-        > h2 {
-          text-transform: uppercase;
-          font-size: 16px;
-          letter-spacing: 2px;
+      > div {
+        width: 90%;
+        @include flex(column, unset, unset, 0.2rem);
+        > label {
+          color: black;
+          font-size: 14px;
         }
-        > img {
-          @include square(5rem);
-          object-fit: cover;
-          border-radius: 5px;
+        > input {
+          outline: none;
+          padding: 7px 6px;
+          border: transparent;
+          background: aliceblue;
+          font-size: 14px;
         }
-        > div {
-          width: 90%;
-          @include flex(column, unset, unset, 0.2rem);
-          > label {
-            color: black;
-            font-size: 14px;
-          }
-          > input {
-            outline: none;
-            padding: 7px 6px;
-            border: transparent;
-            background: aliceblue;
-            font-size: 14px;
-          }
-        }
-        > button {
-          padding: 6px 16px;
-          border: none;
-          border-radius: 6px;
-          width: 100%;
-          color: white;
-          background-color: cadetblue;
-          cursor: pointer;
-        }
-      }
-    }
-  
-    .order_info {
-      height: 85vh;
-      background-color: white;
-      width: 100%;
-      max-width: 400px;
-      border-radius: 10px;
-      padding: 0.4rem 1rem;
-      box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.2);
-      > h2 {
-        text-align: center;
-        @include heading(2px);
-      }
-      > h5 {
-        margin: 1rem 0 0 0.5rem;
-        font-size: 1rem;
-        font-weight: 700;
-      }
-      > p {
-        margin: 0.5rem;
       }
       > button {
-        margin: 1rem 0;
-        padding: 0.5rem;
+        padding: 6px 16px;
         border: none;
-        background-color: rgb(5, 107, 224);
-        color: white;
+        border-radius: 6px;
         width: 100%;
-        border-radius: 5px;
-        font-size: 1rem;
+        color: white;
+        background-color: cadetblue;
         cursor: pointer;
-        &:hover {
-          opacity: 0.8;
-        }
-      }
-    }
-  
-    .transaction-product-card {
-      @include flex(row, unset, center, 1rem);
-      > img {
-        @include square(4rem);
-        object-fit: cover;
-        border-radius: 5px;
-      }
-      > span {
-        margin-left: auto;
       }
     }
   }
+
+  .order_info {
+    height: 85vh;
+    background-color: white;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    padding: 0.4rem 1rem;
+    box-shadow: 5px 5px 10px rgb(0, 0, 0, 0.2);
+    > h2 {
+      text-align: center;
+      @include heading(2px);
+    }
+    > h5 {
+      margin: 1rem 0 0 0.5rem;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    > p {
+      margin: 0.5rem;
+    }
+    > button {
+      margin: 1rem 0;
+      padding: 0.5rem;
+      border: none;
+      background-color: rgb(5, 107, 224);
+      color: white;
+      width: 100%;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .transaction-product-card {
+    @include flex(row, unset, center, 1rem);
+    > img {
+      @include square(4rem);
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    > span {
+      margin-left: auto;
+    }
+  }
+}

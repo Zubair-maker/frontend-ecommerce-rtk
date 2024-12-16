@@ -16,6 +16,12 @@ export type ProductResponse = {
   data: Product[];
 };
 
+export type ProductDetailsResponse = {
+  seccess: boolean;
+  data: Product;
+};
+
+
 export type ProductCategoryRespponse = {
   seccess: boolean;
   data: string[];
@@ -40,4 +46,14 @@ export type SearchProductRequest = {
 export type NewProductRequest = {
   id: string;
   formData: FormData; //js types
+};
+
+export type UpdateProductRequest = {
+  userId: string;
+  productId: string;
+  formData: FormData;
+};
+export type DeleteProductRequest = {
+  userId: string;
+  productId: string;
 };

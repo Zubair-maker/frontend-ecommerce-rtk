@@ -30,7 +30,7 @@
     margin: 2rem 0;
     width: 100%;
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
     overflow-x: auto;
     &::-webkit-scrollbar {
       display: none;
@@ -41,7 +41,7 @@
   background: azure;
   border-radius: 4px;
   height: 20rem;
-  width: 18rem;
+  width: 16rem;
   padding: 1rem;
   flex: none;
   @include flex(column, flex-start, center, 2px);

@@ -97,7 +97,6 @@ const App = () => {
             >
               <Route path="admin/dashboard" element={<Dashboard />} />
               <Route path="admin/customer" element={<Customers />} />
-              <Route path="admin/product" element={<Product />} />
               <Route path="admin/transaction" element={<Transaction />} />
               {/* barcharts routs */}
               <Route path="/admin/chart/bar" element={<BarCharts />} />
@@ -105,6 +104,7 @@ const App = () => {
               <Route path="/admin/chart/line" element={<LineCharts />} />
               {/* management routes */}
               <Route path="/admin/product/new" element={<NewProduct />} />
+              <Route path="admin/product" element={<Product />} />
               <Route
                 path="/admin/product/:id"
                 element={<ProductManagement />}

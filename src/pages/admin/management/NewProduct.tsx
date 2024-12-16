@@ -21,11 +21,12 @@ const NewProduct = () => {
   const [file, setFile] = useState<File | null>(null); // Store raw file instead of Base64 string
   const [photoPreview, setPhotoPreview] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  console.log("phhottp", file);
+  // console.log("phhottp", file,photoPreview);
   const [createProduct] = useCreateProductMutation();
 
   const processFile = (file: File) => {
     const reader: FileReader = new FileReader();
+    console.log("reader",reader)
     setLoading(true);
     reader.readAsDataURL(file); // Generate a preview
     reader.onloadend = () => {

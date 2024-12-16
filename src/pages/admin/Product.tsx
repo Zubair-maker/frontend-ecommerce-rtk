@@ -54,11 +54,11 @@ const Product = () => {
     if (data)
       setRows(
         data.data.map((i) => ({
-          photo: <img src={`${server}/${i.photo}`} />,
+          photo: <img key={i._id} src={`${server}/${i.photo}`} />,
           name: i.productName,
           price: i.price,
           stock: i.stock,
-          action: <Link to={`/admin/prduct/${i._id}`}>Manage</Link>,
+          action: <Link to={`/admin/product/${i._id}`}>Manage</Link>,
         }))
       );
   }, [data]);
@@ -68,7 +68,7 @@ const Product = () => {
     rows,
     "dashboard-product-box",
     "Products",
-    true
+    rows.length > 6
   )();
   // if (isLoading) {
   //   return <>ejfnjefnjwfnwjfn</>;
