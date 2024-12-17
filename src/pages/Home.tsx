@@ -5,6 +5,9 @@ import ProductCard from "../components/ProductCard";
 import { useLatestProductQuery } from "../redux/api-rtk/productApi";
 import { Skeleton } from "../components/Loader";
 import toast from "react-hot-toast";
+import { CartItem } from "../types/types";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/reducers/cartReducer";
 
 const DemoCarousel = () => {
   return (
@@ -32,11 +35,16 @@ const DemoCarousel = () => {
 };
 
 const Home = () => {
+  const dispatch = useDispatch();
   const { data, isLoading, isError } = useLatestProductQuery("");
 
   // console.log("home",data?.data)
   if (isError) toast.error("Cant Fetch Products");
-  const addToCart = () => {};
+  const addToCartFunc = (cartItem:CartItem) => {
+    if(cartItem.stock < 1) return toast.error("Out of stock");
+    dispatch(addToCart(cartItem));
+    toast.success("Product added")
+  };
   return (
     <div className="home">
       <section>
@@ -56,10 +64,10 @@ const Home = () => {
             <ProductCard
               key={product._id}
               productId={product._id}
-              name={product.productName}
+              productName={product.productName}
               price={product.price}
               stock={product.stock}
-              handler={addToCart}
+              handler={addToCartFunc}
               photo={product.photo}
             />
           ))

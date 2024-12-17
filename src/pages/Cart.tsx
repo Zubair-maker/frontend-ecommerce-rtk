@@ -2,22 +2,43 @@ import { useEffect, useState } from "react";
 import { VscError } from "react-icons/vsc";
 import CartItems from "../components/CartItems";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { CartItem, CartReducerInitialState } from "../types/types";
+import { addToCart, removeFromCart } from "../redux/reducers/cartReducer";
 
-const cartItems = [
-  {
-    productId: "kkjllkl",
-    photo: "https://m.media-amazon.com/images/I/71RDgtHsREL._AC_UY218_.jpg",
-    name: "Macbook",
-    price: 5000,
-    stock: 20,
-    quantity: 10,
-  },
-];
+// const cartItems = [
+//   {
+//     productId: "kkjllkl",
+//     photo: "https://m.media-amazon.com/images/I/71RDgtHsREL._AC_UY218_.jpg",
+//     name: "Macbook",
+//     price: 5000,
+//     stock: 20,
+//     quantity: 10,
+//   },
+// ];
 
 const Cart = () => {
+  const dispatch = useDispatch();
+  const { cartItems, subtotal, shippingCharges, tax, total, discount } =
+    useSelector(
+      (state: { cartReducer: CartReducerInitialState }) => state.cartReducer
+    );
+
   const [couponCode, setCouponCode] = useState<string>("");
   const [isValidCouponCode, setIsValidCouponCode] = useState<boolean>(false);
 
+  const increamentProdQty = (cartItem: CartItem) => {
+    if(cartItem.quantity >= cartItem.stock) return;
+    dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity + 1 }));
+  };
+
+  const decreamentProdQty = (cartItem: CartItem) => {
+    if(cartItem.quantity <= 1) return;
+    dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity - 1 }));
+  };
+  const removeProductFromCart = (productId:string) =>{
+    dispatch(removeFromCart(productId))
+  }
   useEffect(() => {
     const timerId = setTimeout(() => {
       if (Math.random() > 0.5) {
@@ -36,20 +57,28 @@ const Cart = () => {
     <div className="cart">
       <div className="rigth">
         {cartItems.length > 0 ? (
-          cartItems.map((i, id) => <CartItems key={id} cartItem={i} />)
+          cartItems.map((i, id) => (
+            <CartItems
+              key={id}
+              cartItem={i}
+              increamentProdQty={increamentProdQty}
+              decreamentProdQty={decreamentProdQty}
+              removeProductFromCart={removeProductFromCart}
+            />
+          ))
         ) : (
           <h1>No Items Added..</h1>
         )}
       </div>
       <div className="left">
-        <p>Subtotal: ₹{200}</p>
-        <p>Shipping Charges: ₹{20}</p>
-        <p>Tax: ₹{5}</p>
+        <p>Subtotal: ₹{subtotal}</p>
+        <p>Shipping Charges: ₹{shippingCharges}</p>
+        <p>Tax: ₹{tax}</p>
         <p>
-          Discount: <em className="red"> - ₹{10}</em>
+          Discount: <em className="red"> - ₹{discount}</em>
         </p>
         <p>
-          <b>Total: ₹{500}</b>
+          <b>Total: ₹{total}</b>
         </p>
 
         <input

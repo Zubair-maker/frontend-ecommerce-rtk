@@ -23,3 +23,32 @@ export type Product = {
   price: number;
   _id: string;
 };
+
+export type ShippingInfo = {
+  address: string;
+  city: string;
+  state: string;
+  country: string;
+  pincode: string;
+};
+
+export type CartItem = {
+  productId: string;
+  productName: string;
+  photo: string;
+  quantity: number;
+  price: number;
+  stock: number;
+};
+
+//cartReducer types
+export interface CartReducerInitialState {
+  cartItems: CartItem[];
+  loading: boolean;
+  subtotal: number;
+  tax: number;
+  shippingCharges: number;
+  discount: number;
+  total: number;
+  shippingInfo: ShippingInfo;
+}
