@@ -1,13 +1,13 @@
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
+import { Skeleton } from "../components/Loader";
 import ProductCard from "../components/ProductCard";
 import { useLatestProductQuery } from "../redux/api-rtk/productApi";
-import { Skeleton } from "../components/Loader";
-import toast from "react-hot-toast";
+import { addToCart, calculatePrice } from "../redux/reducers/cartReducer";
 import { CartItem } from "../types/types";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../redux/reducers/cartReducer";
 
 const DemoCarousel = () => {
   return (
@@ -43,6 +43,7 @@ const Home = () => {
   const addToCartFunc = (cartItem:CartItem) => {
     if(cartItem.stock < 1) return toast.error("Out of stock");
     dispatch(addToCart(cartItem));
+    dispatch(calculatePrice());
     toast.success("Product added")
   };
   return (

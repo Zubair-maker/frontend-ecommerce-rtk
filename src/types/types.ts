@@ -29,7 +29,7 @@ export type ShippingInfo = {
   city: string;
   state: string;
   country: string;
-  pincode: string;
+  pinCode: string;
 };
 
 export type CartItem = {
@@ -43,8 +43,8 @@ export type CartItem = {
 
 //cartReducer types
 export interface CartReducerInitialState {
-  cartItems: CartItem[];
   loading: boolean;
+  cartItems: CartItem[];
   subtotal: number;
   tax: number;
   shippingCharges: number;
@@ -52,3 +52,39 @@ export interface CartReducerInitialState {
   total: number;
   shippingInfo: ShippingInfo;
 }
+
+//in mogoDB ->orderItemArray
+// productName:"Nokia 11"
+// photo:"uploads\079af12c-58bf-4321-841e-12e5eecbabdf.jpeg"
+// price:5000
+// quantity:2
+// productId:674ea9360e687f314f9ad33d
+// _id:6763b9e5fb3b0868bd643510
+export type OrderItem = {
+  productName: string;
+  photo: string;
+  price: number;
+  quantity: number;
+  productId: string;
+  _id: string;
+};
+
+export type Order = {
+  _id: string;
+  orderItem: OrderItem[];
+  shippingInfo: ShippingInfo;
+  subTotal: number;
+  tax: number;
+  shippingCharges: number;
+  discount: number;
+  total: number;
+  status: string;
+  user: {
+    name: string;
+    _id: string;
+  };
+};
+//order=data
+export type Data<T> = {
+  data: T;
+};

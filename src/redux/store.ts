@@ -3,6 +3,7 @@ import { productAPI } from "./api-rtk/productApi";
 import { userAPI } from "./api-rtk/userAPI";
 import { userReducer } from "./reducers/userReducer";
 import { cartReducer } from "./reducers/cartReducer";
+import { orderApi } from "./api-rtk/orderApi";
 
 export const server = import.meta.env.VITE_SERVER;
 
@@ -10,8 +11,14 @@ export const store = configureStore({
   reducer: {
     [userAPI.reducerPath]: userAPI.reducer,
     [productAPI.reducerPath]: productAPI.reducer,
+    [orderApi.reducerPath]: orderApi.reducer,
     userReducer: userReducer.reducer,
     cartReducer: cartReducer.reducer,
   },
-  middleware: (mid) => [...mid(), userAPI.middleware, productAPI.middleware],
+  middleware: (mid) => [
+    ...mid(),
+    userAPI.middleware,
+    productAPI.middleware,
+    orderApi.middleware,
+  ],
 });

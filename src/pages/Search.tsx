@@ -4,12 +4,16 @@ import {
   useProductCategoryQuery,
   useSearchProductQuery,
 } from "../redux/api-rtk/productApi";
+import { CartItem } from "../types/types";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { addToCart, calculatePrice } from "../redux/reducers/cartReducer";
 
 const Search = () => {
+  const dispatch = useDispatch();
+
   const { data: categories } = useProductCategoryQuery("");
-
   // console.log("category", categories?.data);
-
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
   const [maxPrice, setMaxPrice] = useState<number>(50000);
@@ -24,7 +28,12 @@ const Search = () => {
     category,
   });
   // console.log("searchProd", searchProduct?.data.data);
-  const addToCart = () => {};
+  const addToCartFunc = (cartItem:CartItem) => {
+     if(cartItem.stock < 1) return toast.error("Out of stock");
+     dispatch(addToCart(cartItem));
+     dispatch(calculatePrice());
+     toast.success("Product added")
+  };
   return (
     <div className="search_page">
       <aside>
@@ -74,10 +83,10 @@ const Search = () => {
               <ProductCard
                 key={item._id}
                 productId={item._id}
-                name={item.productName}
+                productName={item.productName}
                 price={item.price}
                 stock={item.stock}
-                handler={addToCart}
+                handler={addToCartFunc}
                 photo={item.photo}
               />
             ))

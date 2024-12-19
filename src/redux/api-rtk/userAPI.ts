@@ -32,6 +32,23 @@ export const getUser = async (id: string) => {
   }
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getDiscount = async (code: string, cancelToken: any) => {
+  try {
+    const resp = await axios.get(
+      `${import.meta.env.VITE_SERVER}/api/v1/payment/discount?coupen=${code}`,
+      { cancelToken } // Pass the cancelToken directly
+    );
+    return resp;
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log("Request canceled:", error.message);
+    } else {
+      throw error;
+    }
+  }
+};
+
 export const { useLoginMutation } = userAPI as typeof userAPI;
 
 //router.post("/new", newUser); our route in user in BE nodejs url: "/new",
