@@ -5,7 +5,11 @@ export type MesssageResponse = {
   success: boolean;
   message: string;
 };
-
+//allUsers
+export type AllUserResponse = {
+  success: boolean;
+  data: [];
+};
 export type UserResponse = {
   success: boolean;
   data: User;
@@ -56,7 +60,11 @@ export type DeleteProductRequest = {
   userId: string;
   productId: string;
 };
-
+//deleteUser
+export type DeleteUserRequest = {
+  userId: string;
+  adminId: string;
+};
 //order
 export type placeOrderRequest = {
   shippingInfo: ShippingInfo;

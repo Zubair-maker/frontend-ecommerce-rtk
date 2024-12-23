@@ -1,15 +1,16 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase";
-import { userExist, userNotExist } from "./redux/reducers/userReducer";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "./redux/api-rtk/userAPI";
-import { UserReducerInitialState } from "./types/types";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Loader from "./components/Loader";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { auth } from "./firebase";
+import NotFound from "./pages/NotFound";
+import { getUser } from "./redux/api-rtk/userAPI";
+import { userExist, userNotExist } from "./redux/reducers/userReducer";
+import { UserReducerInitialState } from "./types/types";
 
 const Home = lazy(() => import("./pages/Home"));
 const Cart = lazy(() => import("./pages/Cart"));
@@ -114,6 +115,7 @@ const App = () => {
                 element={<TransactionManagement />}
               />
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
         <Toaster position="bottom-center" />

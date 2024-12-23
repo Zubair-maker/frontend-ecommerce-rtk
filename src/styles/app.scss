@@ -231,3 +231,20 @@ body {
     opacity: 0.6;
   }
 }
+
+.not_found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16%;
+  > svg {
+    font-size: 4rem;
+    color: red;
+  }
+  > h1 {
+    color: blue;
+    font-size: 26px;
+    letter-spacing: 6px;
+    font-weight: 800;
+  }
+}
