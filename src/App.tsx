@@ -44,13 +44,17 @@ const App = () => {
   const [authLoading, setAuthLoading] = useState(true);
   useEffect(() => {
     onAuthStateChanged(auth, async (firebaseUser) => {
-      if (firebaseUser) {
-        const data = await getUser(firebaseUser.uid);
-        // console.log("data",data)
-        dispatch(userExist(data?.data));
-        // console.log("loggedin");
-      } else {
-        dispatch(userNotExist());
+      try {
+        if (firebaseUser && firebaseUser.uid) {
+          const data = await getUser(firebaseUser.uid); // Make sure you're passing the correct UID
+          // console.log("user data:", data);
+          dispatch(userExist(data?.data));
+        } else {
+          dispatch(userNotExist());
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        dispatch(userNotExist()); // Optionally handle errors
       }
       setAuthLoading(false);
     });
@@ -85,14 +89,17 @@ const App = () => {
             >
               <Route path="/shipping" element={<Shipping />} />
               <Route path="/orders" element={<Order />} />
-              <Route path="/orders/:id" element={<OrderDetails />}   
-              />
+              <Route path="/orders/:id" element={<OrderDetails />} />
             </Route>
             <Route
               element={
-                <ProtectedRoute isAuthenticated={!!user} adminRoute={true} isAdmin={user?.role === "admin"}/>
+                <ProtectedRoute
+                  isAuthenticated={!!user}
+                  adminRoute={true}
+                  isAdmin={user?.role === "admin"}
+                />
               }
-              >
+            >
               <Route path="admin/dashboard" element={<Dashboard />} />
               <Route path="admin/customer" element={<Customers />} />
               <Route path="admin/transaction" element={<Transaction />} />
