@@ -10,7 +10,6 @@ import {
   useAllUsersQuery,
   useDeleteUserMutation,
 } from "../../redux/api-rtk/userAPI";
-import { server } from "../../redux/store";
 import { MesssageResponse } from "../../types/api-types";
 import { UserReducerInitialState } from "../../types/types";
 

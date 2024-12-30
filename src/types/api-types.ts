@@ -1,4 +1,4 @@
-import { CartItem, Order, Product, ShippingInfo, User } from "./types";
+import { CartItem, Order, Product, ShippingInfo, Stats, User } from "./types";
 
 //which is api response which return
 export type MesssageResponse = {
@@ -94,4 +94,9 @@ export type singleOrderResponse = {
 export type UpdateOrderRequest = {
   adminId: string;
   orderId: string;
+};
+//stats-dashboard
+export type StatsResponse = {
+  success: boolean;
+  stats: Stats;
 };

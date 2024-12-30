@@ -85,17 +85,14 @@ const App = () => {
             >
               <Route path="/shipping" element={<Shipping />} />
               <Route path="/orders" element={<Order />} />
-              <Route path="/orders/:id" element={<OrderDetails />} />
+              <Route path="/orders/:id" element={<OrderDetails />}   
+              />
             </Route>
             <Route
               element={
-                <ProtectedRoute
-                  isAuthenticated={!!user}
-                  adminRoute={true}
-                  isAdmin={user?.role === "admin"}
-                />
+                <ProtectedRoute isAuthenticated={!!user} adminRoute={true} isAdmin={user?.role === "admin"}/>
               }
-            >
+              >
               <Route path="admin/dashboard" element={<Dashboard />} />
               <Route path="admin/customer" element={<Customers />} />
               <Route path="admin/transaction" element={<Transaction />} />

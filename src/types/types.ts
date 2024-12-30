@@ -88,3 +88,40 @@ export type Order = {
 export type Data<T> = {
   data: T;
 };
+
+//stats
+type count = {
+  revenue: number;
+  users: number;
+  products: number;
+  order: number;
+};
+type categoryCount = {
+  category: string;
+  countPercent: number;
+};
+type userRatio = {
+  male: number;
+  female: number;
+};
+type latestTransaction = {
+  _id: string;
+  discount: number;
+  amount: number;
+  quantity: number;
+  status: string;
+};
+export type Stats = {
+  categoryCount: categoryCount[];
+  revenue: number;
+  product: number;
+  order: number;
+  user: number;
+  userRatio: userRatio;
+  count: count;
+  charts: {
+    order: number[];
+    revenue: number[];
+  };
+  latestTransaction: latestTransaction[];
+};
