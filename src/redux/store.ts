@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { productAPI } from "./api-rtk/productApi";
+import { productAPI } from "./api-rtk/productAPI";
 import { userAPI } from "./api-rtk/userAPI";
 import { userReducer } from "./reducers/userReducer";
 import { cartReducer } from "./reducers/cartReducer";
@@ -17,11 +17,11 @@ export const store = configureStore({
     userReducer: userReducer.reducer,
     cartReducer: cartReducer.reducer,
   },
-  middleware: (mid) => [
-    ...mid(),
-    userAPI.middleware,
-    productAPI.middleware,
-    orderApi.middleware,
-    dashboardApi.middleware
-  ],
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(
+      userAPI.middleware,
+      productAPI.middleware,
+      orderApi.middleware,
+      dashboardApi.middleware
+    ),
 });

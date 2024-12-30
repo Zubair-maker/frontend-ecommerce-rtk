@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
 import { debounce } from "../../../utils/debounce";
-import { useCreateProductMutation } from "../../../redux/api-rtk/productApi";
+import { useCreateProductMutation } from "../../../redux/api-rtk/productAPI";
 import { useSelector } from "react-redux";
 import { UserReducerInitialState } from "../../../types/types";
 import toast from "react-hot-toast";

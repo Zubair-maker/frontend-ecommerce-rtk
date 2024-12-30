@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Column } from "react-table";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import TableHOC from "../../components/admin/TableHoc";
-import { useAllAdminProdutsQuery } from "../../redux/api-rtk/productApi";
+import { useAllAdminProdutsQuery } from "../../redux/api-rtk/productAPI";
 import { server } from "../../redux/store";
 import { UserReducerInitialState } from "../../types/types";
 

@@ -3,7 +3,7 @@ import ProductCard from "../components/ProductCard";
 import {
   useProductCategoryQuery,
   useSearchProductQuery,
-} from "../redux/api-rtk/productApi";
+} from "../redux/api-rtk/productAPI";
 import { CartItem } from "../types/types";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";

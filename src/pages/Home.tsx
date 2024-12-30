@@ -5,7 +5,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
 import { Skeleton } from "../components/Loader";
 import ProductCard from "../components/ProductCard";
-import { useLatestProductQuery } from "../redux/api-rtk/productApi";
+import { useLatestProductQuery } from "../redux/api-rtk/productAPI";
 import { addToCart, calculatePrice } from "../redux/reducers/cartReducer";
 import { CartItem } from "../types/types";
 

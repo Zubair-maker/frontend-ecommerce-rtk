@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
-import { useDeleteProductMutation, useProdutDetailsQuery, useUpdateProductMutation } from "../../../redux/api-rtk/productApi";
+import { useDeleteProductMutation, useProdutDetailsQuery, useUpdateProductMutation } from "../../../redux/api-rtk/productAPI";
 import { server } from "../../../redux/store";
 import { UserReducerInitialState } from "../../../types/types";
 import { debounce } from "../../../utils/debounce";
