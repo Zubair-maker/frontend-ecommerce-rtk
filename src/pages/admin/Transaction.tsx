@@ -57,30 +57,30 @@ const Transaction = () => {
   const { data, isError, isLoading } = useAllOrderQuery(user!._id);
   // console.log("object", data?.data);
   const [rows, setRows] = useState<DataType[]>([]);
-
+  console.log("name",data)
   useEffect(() => {
     if (data)
       setRows(
-        data?.data.map((i) => ({
-          _id: i._id,
-          user: i.user.name,
-          amount: i.total,
-          discount: i.discount,
-          quantity: i.orderItem.length,
+        data?.data?.map((i) => ({
+          _id: i?._id,
+          user: i.user?.name,
+          amount: i?.total,
+          discount: i?.discount,
+          quantity: i?.orderItem.length,
           status: (
             <span
               className={
-                i.status === "Processing"
+                i?.status === "Processing"
                   ? "red"
-                  : i.status === "Shipped"
+                  : i?.status === "Shipped"
                   ? "green"
                   : "purple"
               }
             >
-              {i.status}
+              {i?.status}
             </span>
           ),
-          action: <Link to={`/admin/transaction/${i._id}`}>Manage</Link>,
+          action: <Link to={`/admin/transaction/${i?._id}`}>Manage</Link>,
         }))
       );
   }, [data]);
@@ -90,7 +90,7 @@ const Transaction = () => {
     rows,
     "dashboard-product-box",
     "Transaction",
-    true
+    rows.length > 6
   )();
 
   if (isLoading) return <p>Loading...</p>;
