@@ -98,7 +98,7 @@ const Transaction = () => {
   return (
     <div className="admin_container">
       <AdminSidebar />
-      <main>{Table}</main>
+      <main>{rows.length > 0 ? Table : <p>No Transaction Available</p>}</main>
     </div>
   );
 };
